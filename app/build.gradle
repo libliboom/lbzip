@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
 group ='com.github.libliboom'
@@ -6,7 +6,6 @@ group ='com.github.libliboom'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.github.libliboom.lbzip"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
