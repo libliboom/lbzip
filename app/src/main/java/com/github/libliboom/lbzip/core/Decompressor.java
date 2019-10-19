@@ -27,7 +27,8 @@ public class Decompressor {
     {
         entriesQueue = new ArrayBlockingQueue<>(SIZE_OF_ARRAY);
     }
-
+    //What if People doesn't know how many threads are suitable for decompressing?
+    //Can it be provided as default value?
     public Decompressor(int nthreads, DecompressListener callback) {
         this.nthreads = nthreads;
         this.callback = callback;
