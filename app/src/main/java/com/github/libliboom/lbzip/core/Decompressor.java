@@ -15,7 +15,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class Decompressor {
-
+    // Is there a reason of fixing size of array to 100?
     private static final int SIZE_OF_ARRAY = 100;
 
     private final int nthreads;
