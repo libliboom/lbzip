@@ -15,7 +15,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class Decompressor {
-
+    // Is there a reason of fixing size of array to 100?
     private static final int SIZE_OF_ARRAY = 100;
 
     private final int nthreads;
@@ -27,7 +27,8 @@ public class Decompressor {
     {
         entriesQueue = new ArrayBlockingQueue<>(SIZE_OF_ARRAY);
     }
-
+    //What if People doesn't know how many threads are suitable for decompressing?
+    //Can it be provided as default value?
     public Decompressor(int nthreads, DecompressListener callback) {
         this.nthreads = nthreads;
         this.callback = callback;

@@ -60,6 +60,7 @@ public class Decompress implements Runnable {
         callback.onDecompressing(percentage);
     }
 
+    // Could you explain how compress and decompress works?
     private void unzipEntry(ZipFile zfile, ZipEntry entry, File dfile)
             throws IOException {
         final byte[] buf = new byte[SIZE_OF_BUFFER];
@@ -85,6 +86,7 @@ public class Decompress implements Runnable {
             LBIOUtils.close(fos);
             LBIOUtils.close(bis);
             LBIOUtils.close(is);
+            // Is there a specific reason to make Util Class for closing these streams?
         }
     }
 
