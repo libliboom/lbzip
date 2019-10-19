@@ -60,6 +60,7 @@ public class Decompress implements Runnable {
         callback.onDecompressing(percentage);
     }
 
+    // Could you explain how compress and decompress works?
     private void unzipEntry(ZipFile zfile, ZipEntry entry, File dfile)
             throws IOException {
         final byte[] buf = new byte[SIZE_OF_BUFFER];
