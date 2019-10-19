@@ -75,6 +75,7 @@ public class Decompressor {
             throws IOException {
         ZipFile zfile = new ZipFile(file);
         Enumeration entries = zfile.entries();
+        //What means entry?
 
         int count = 0;
         while (entries.hasMoreElements()) {
