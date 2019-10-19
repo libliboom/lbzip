@@ -14,6 +14,8 @@ dependencies {
 }
 ```
 
+The following code is implementation example in Android.
+
 ```java
 public void decompress(String desPath, String zfilePath, DecompressListener listener) {
     int nprocess = Runtime.getRuntime().availableProcessors()/2;
