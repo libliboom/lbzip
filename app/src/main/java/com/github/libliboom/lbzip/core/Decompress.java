@@ -86,6 +86,7 @@ public class Decompress implements Runnable {
             LBIOUtils.close(fos);
             LBIOUtils.close(bis);
             LBIOUtils.close(is);
+            // Is there a specific reason to make Util Class for closing these streams?
         }
     }
 
