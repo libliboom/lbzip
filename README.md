@@ -4,6 +4,16 @@ Decompressor with multi thread
 
 ## How to use
 
+You can find latest version [jitpack.io](https://jitpack.io/#libliboom/lbzip/).
+
+implement like the following code in your build.gradle
+
+```java
+dependencies {
+    implementation 'com.github.libliboom:lbzip:0.0.1'
+}
+```
+
 ```java
 public void decompress(String desPath, String zfilePath, DecompressListener listener) {
     int nprocess = Runtime.getRuntime().availableProcessors()/2;
