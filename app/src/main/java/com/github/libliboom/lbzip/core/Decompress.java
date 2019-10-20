@@ -68,6 +68,7 @@ public class Decompress implements Runnable {
         FileOutputStream fos = null;
         BufferedOutputStream bos = null;
 
+        //I don't know hot to unzip this file. How do it unzip?
         try {
             is = zfile.getInputStream(entry);
             bis = new BufferedInputStream(is);
