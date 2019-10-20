@@ -22,16 +22,15 @@ public class Decompressor {
     private int nentries;
     private BlockingQueue<Decompress> entriesQueue;
 
-    public Decompressor(int nthreads, int arraySize, DecompressListener callback) {
+    public Decompressor(int nthreads, DecompressListener callback) {
         this.nthreads = nthreads;
         this.callback = callback;
-        entriesQueue = new ArrayBlockingQueue<>(arraySize);
 
         if(this.callback == null)
             throw new RuntimeException("ERROR: YOU MUST SET DECOMPRESSLISTENER OBJECT FOR DECOMPRESSOR");
     }
 
-    public void unzip(String targetPath, String zfilePath) {
+    public void unzip(String targetPath, String zfilePath, int arraySize) {
 
         callback.onStarted(); // or listener.onReStarted();
 
@@ -41,6 +40,7 @@ public class Decompressor {
             File file = new File(zfilePath);
             int count = getCountOfEntries(file);
             nentries = count;
+            entriesQueue = new ArrayBlockingQueue<>(arraySize);
             countDownLatch = new CountDownLatch(count);
             enqueue(file, targetPath, new CountDownWatchDog(nentries, countDownLatch));
         } catch (IOException e) {
