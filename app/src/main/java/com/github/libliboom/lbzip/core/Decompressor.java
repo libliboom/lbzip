@@ -16,21 +16,16 @@ import java.util.zip.ZipFile;
 
 public class Decompressor {
 
-    private static final int SIZE_OF_ARRAY = 100;
-
     private final int nthreads;
     private final DecompressListener callback;
 
     private int nentries;
     private BlockingQueue<Decompress> entriesQueue;
 
-    {
-        entriesQueue = new ArrayBlockingQueue<>(SIZE_OF_ARRAY);
-    }
-
-    public Decompressor(int nthreads, DecompressListener callback) {
+    public Decompressor(int nthreads, int arraySize, DecompressListener callback) {
         this.nthreads = nthreads;
         this.callback = callback;
+        entriesQueue = new ArrayBlockingQueue<>(arraySize);
 
         if(this.callback == null)
             throw new RuntimeException("ERROR: YOU MUST SET DECOMPRESSLISTENER OBJECT FOR DECOMPRESSOR");
