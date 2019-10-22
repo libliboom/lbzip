@@ -66,16 +66,21 @@ public class Decompressor {
         }
     }
 
-    private int getCountOfEntries(File file)
-            throws IOException {
-        ZipFile zfile = new ZipFile(file);
-        Enumeration entries = zfile.entries();
-
+    private int getCountOfEntries(File file) throws IOException {
         int count = 0;
-        while (entries.hasMoreElements()) {
-            ++count;
-            entries.nextElement();
+        ZipFile zfile = null;
+        try {
+            zfile = new ZipFile(file);
+            Enumeration entries = zfile.entries();
+            while (entries.hasMoreElements()) {
+                ++count;
+                entries.nextElement();
+            }
+        } finally {
+            if(zfile != null);
+            zfile.close();
         }
+
         return count;
     }
 
