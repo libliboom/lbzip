@@ -16,17 +16,11 @@ import java.util.zip.ZipFile;
 
 public class Decompressor {
 
-    private static final int SIZE_OF_ARRAY = 100;
-
     private final int nthreads;
     private final DecompressListener callback;
 
     private int nentries;
     private BlockingQueue<Decompress> entriesQueue;
-
-    {
-        entriesQueue = new ArrayBlockingQueue<>(SIZE_OF_ARRAY);
-    }
 
     public Decompressor(int nthreads, DecompressListener callback) {
         this.nthreads = nthreads;
@@ -36,7 +30,7 @@ public class Decompressor {
             throw new RuntimeException("ERROR: YOU MUST SET DECOMPRESSLISTENER OBJECT FOR DECOMPRESSOR");
     }
 
-    public void unzip(String targetPath, String zfilePath) {
+    public void unzip(String targetPath, String zfilePath, int arraySize) {
 
         callback.onStarted(); // or listener.onReStarted();
 
@@ -46,6 +40,7 @@ public class Decompressor {
             File file = new File(zfilePath);
             int count = getCountOfEntries(file);
             nentries = count;
+            entriesQueue = new ArrayBlockingQueue<>(arraySize);
             countDownLatch = new CountDownLatch(count);
             enqueue(file, targetPath, new CountDownWatchDog(nentries, countDownLatch));
         } catch (IOException e) {
@@ -71,16 +66,21 @@ public class Decompressor {
         }
     }
 
-    private int getCountOfEntries(File file)
-            throws IOException {
-        ZipFile zfile = new ZipFile(file);
-        Enumeration entries = zfile.entries();
-
+    private int getCountOfEntries(File file) throws IOException {
         int count = 0;
-        while (entries.hasMoreElements()) {
-            ++count;
-            entries.nextElement();
+        ZipFile zfile = null;
+        try {
+            zfile = new ZipFile(file);
+            Enumeration entries = zfile.entries();
+            while (entries.hasMoreElements()) {
+                ++count;
+                entries.nextElement();
+            }
+        } finally {
+            if(zfile != null);
+            zfile.close();
         }
+
         return count;
     }
 
